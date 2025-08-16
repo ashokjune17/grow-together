@@ -1,0 +1,212 @@
+{
+    "columns": [
+        "name",
+        "change",
+        "close",
+        "price_52_week_high",
+        "High.All",
+        "sector",
+        "recommendation_mark",
+        "RSI",
+        "ADX",
+        "volume",
+        "average_volume_10d_calc",
+        "market_cap_basic",
+        "CCI20",
+        "W.R",        
+        "MACD.macd",
+        "MACD.signal",
+        "MACD.macd|1W",
+        "MACD.signal|1W"
+    ],
+    "filter": [
+        {
+            "left": "market_cap_basic",
+            "operation": "egreater",
+            "right": 1000000000
+        },
+        {
+            "left": "RSI",
+            "operation": "in_range",
+            "right": [
+                56,
+                70
+            ]
+        },
+        {
+            "left": "ADX",
+            "operation": "egreater",
+            "right": 25
+        },
+        {
+            "left": "SMA50",
+            "operation": "less",
+            "right": "close"
+        },
+        {
+            "left": "SMA200",
+            "operation": "less",
+            "right": "close"
+        },
+        {
+            "left": "SMA20",
+            "operation": "less",
+            "right": "close"
+        },
+        {
+            "left": "exchange",
+            "operation": "in_range",
+            "right": [
+                "NSE"
+            ]
+        },
+        {
+            "left": "CCI20",
+            "operation": "egreater",
+            "right": 60
+        },
+        {
+            "left": "W.R",
+            "operation": "in_range",
+            "right": [
+                -80,
+                -20
+            ]
+        },
+        {
+            "left": "close",
+            "operation": "in_range%",
+            "right": [
+                "price_52_week_high",
+                0.9,
+                1
+            ]
+        },
+        {
+            "left": "relative_volume_10d_calc",
+            "operation": "greater",
+            "right": 1.5
+        },
+        {
+            "left": "average_volume_10d_calc",
+            "operation": "less",
+            "right": "volume"
+        },
+        {
+            "left": "ATRP",
+            "operation": "egreater",
+            "right": 2
+        }
+    ],
+    "ignore_unknown_fields": false,
+    "options": {
+        "lang": "en"
+    },
+    "range": [
+        0,
+        100
+    ],
+    "sort": {
+        "sortBy": "volume",
+        "sortOrder": "desc"
+    },
+    "symbols": {},
+    "markets": [
+        "india"
+    ],
+    "filter2": {
+        "operator": "and",
+        "operands": [
+            {
+                "operation": {
+                    "operator": "or",
+                    "operands": [
+                        {
+                            "operation": {
+                                "operator": "and",
+                                "operands": [
+                                    {
+                                        "expression": {
+                                            "left": "type",
+                                            "operation": "equal",
+                                            "right": "stock"
+                                        }
+                                    },
+                                    {
+                                        "expression": {
+                                            "left": "typespecs",
+                                            "operation": "has",
+                                            "right": [
+                                                "common"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "operation": {
+                                "operator": "and",
+                                "operands": [
+                                    {
+                                        "expression": {
+                                            "left": "type",
+                                            "operation": "equal",
+                                            "right": "stock"
+                                        }
+                                    },
+                                    {
+                                        "expression": {
+                                            "left": "typespecs",
+                                            "operation": "has",
+                                            "right": [
+                                                "preferred"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "operation": {
+                                "operator": "and",
+                                "operands": [
+                                    {
+                                        "expression": {
+                                            "left": "type",
+                                            "operation": "equal",
+                                            "right": "dr"
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "operation": {
+                                "operator": "and",
+                                "operands": [
+                                    {
+                                        "expression": {
+                                            "left": "type",
+                                            "operation": "equal",
+                                            "right": "fund"
+                                        }
+                                    },
+                                    {
+                                        "expression": {
+                                            "left": "typespecs",
+                                            "operation": "has_none_of",
+                                            "right": [
+                                                "etf"
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
