@@ -1,0 +1,36 @@
+name: Stock Reporter
+
+on:
+  schedule:
+    # Every 15 mins between 9:30–15:30 IST (04:00–10:00 UTC), Mon–Fri
+    - cron: "*/15 4-10 * * 1-5"
+    # Once at 15:30 IST (10:00 UTC) for report
+    - cron: "0 10 * * 1-5"
+  workflow_dispatch: # allow manual trigger too
+
+jobs:
+  collect-data:
+    if: github.event.schedule == '*/15 4-10 * * 1-5'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Run data collector
+        run: python scripts/volume_picker.py
+
+      - name: Commit data
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add data/
+          git commit -m "Append stock data"
+          git push
