@@ -25,9 +25,3 @@ jobs:
 
       - name: Show CSV file
         run: cat data/*.csv || echo "No file created"
-
-      - name: Run report.py
-        env:
-          EMAIL_USER: ${{ secrets.EMAIL_USER }}
-          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-        run: python scripts/report.py
