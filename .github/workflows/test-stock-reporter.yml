@@ -1,0 +1,33 @@
+name: Test Stock Reporter
+
+on:
+  workflow_dispatch:   # allows manual trigger from GitHub UI
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run volume_picker.py
+        run: python scripts/volume_picker.py
+
+      - name: Show CSV file
+        run: cat data/*.csv || echo "No file created"
+
+      - name: Run report.py
+        env:
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+        run: python scripts/report.py
